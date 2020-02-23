@@ -24,7 +24,7 @@ namespace Finance.Data
 
         public List<CashFlow> AddCashflow(List<CashFlow> cashFlow)
         {
-            db.Add(cashFlow);
+            db.CashFlows.AddRange(cashFlow);
             return cashFlow;
         }
 
@@ -47,7 +47,14 @@ namespace Finance.Data
 
         public Npv GetByNpvId(int id)
         {
-            return db.Npvs.Find(id);
+            //var npv= db.Npvs.Find(id);
+            var npv = new Npv();
+
+            var entity = db.Npvs.Where(n => n.NpvId == id).Include(c => c.CashFlows).FirstOrDefault();
+
+            npv = entity;
+
+            return npv;
         }
 
         public IEnumerable<Npv> GetNpvByName(string name)

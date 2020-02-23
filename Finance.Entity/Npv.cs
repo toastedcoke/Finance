@@ -22,7 +22,7 @@ namespace Finance.Entity
         public double UpperRate { get; set; }
 
         public List<CashFlow> CashFlows { get; set; }
-
+        public double TotalNpvAmount { get; set; }
         public Npv()
         {
             CashFlows = new List<CashFlow>();

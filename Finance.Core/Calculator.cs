@@ -14,17 +14,18 @@ namespace Finance.Core
             var rate = npv.LowerRate;
             int i = 0;  //year
 
-            double total = npv.InitialValue*-1;
+            double total = npv.InitialValue * -1;
 
             foreach (var item in npv.CashFlows)
             {
                 i++;
-                item.NpvAmount = total + (item.Amount / Math.Pow(1 + rate/100, i));
+                item.NpvAmount = total + (item.Amount / Math.Pow(1 + rate / 100, i));
 
                 rate += npv.IncrementRate;
                 total = item.NpvAmount;
             }
 
+            npv.TotalNpvAmount = total;
             return npv;
         }
     }

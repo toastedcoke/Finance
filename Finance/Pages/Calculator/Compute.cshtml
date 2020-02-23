@@ -23,11 +23,11 @@
         </div>*@
 
 
-    <div class="form-group">
+    <div class="form-group col-xs-12 col-sm-9">
         <label asp-for="Npv.Name"></label>
         <input asp-for="Npv.Name" readonly class="form-control" />
     </div>
-    <div class="form-group">
+    <div class="form-group col-xs-12 col-sm-5">
         <label asp-for="Npv.InitialValue"></label>
         <input asp-for="Npv.InitialValue" readonly class="form-control" />
     </div>
@@ -52,7 +52,10 @@
             <span class="input-group-addon">%</span>
         </div>
     </div>
-
+    <div class="form-group col-xs-12 col-sm-5">
+        <label asp-for="Npv.TotalNpvAmount"></label>
+        <input asp-for="Npv.TotalNpvAmount" readonly class="form-control" />
+    </div>
 
     <table class="table">
         <tr>
@@ -65,11 +68,11 @@
         @foreach (var n in Model.Npv.CashFlows)
         {
             i++;
-    <tr>
-        <td>@i  @Html.HiddenFor(a => n.Id)</td>
-        <td>@Html.DisplayFor(a => n.Amount) @Html.HiddenFor(a => n.Amount)</td>
-        <td>@Html.DisplayTextFor(a => n.NpvAmount) @Html.HiddenFor(a => n.NpvAmount)</td>
-    </tr>
+            <tr>
+                <td>@i  @Html.HiddenFor(a => n.Id)</td>
+                <td>@Html.DisplayFor(a => n.Amount) @Html.HiddenFor(a => n.Amount)</td>
+                <td>@Html.DisplayTextFor(a => n.NpvAmount) @Html.HiddenFor(a => n.NpvAmount)</td>
+            </tr>
         }
 
     </table>

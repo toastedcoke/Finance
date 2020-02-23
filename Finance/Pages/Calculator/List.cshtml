@@ -22,24 +22,26 @@
         <td>Id</td>
         <td>Name</td>
         <td>Initial Value</td>
+        <td>NPV Amount</td>
     </tr>
 
     @foreach (var npv in Model.Npvs)
     {
 
-        <tr>
-            <td>@npv.NpvId</td>
-            <td>@npv.Name</td>
-            <td>@npv.InitialValue</td>
-            <td>
-                <a asp-page="./Detail" 
-                   asp-route-npvId="@npv.NpvId" > View</a>
-            </td>
-            <td>
-                <a asp-page="./Edit"
-                   asp-route-npvId="@npv.NpvId"> Edit</a>
-            </td>
-        </tr>
+<tr>
+    <td>@npv.NpvId</td>
+    <td>@npv.Name</td>
+    <td>@npv.InitialValue</td>
+    <td>@npv.TotalNpvAmount</td>
+    <td>
+        <a asp-page="./Detail"
+           asp-route-npvId="@npv.NpvId"> View</a>
+    </td>
+    <td>
+        <a asp-page="./Edit"
+           asp-route-npvId="@npv.NpvId"> Edit</a>
+    </td>
+</tr>
     }
 
 </table>
