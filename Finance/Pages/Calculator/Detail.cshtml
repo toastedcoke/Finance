@@ -1,0 +1,45 @@
+﻿@page "{npvId:int}"
+@model Finance.DetailModel
+@{
+    ViewData["Title"] = "Detail";
+}
+
+<h1>@Model.Npv.Name</h1>
+
+<div>
+    Initial Value: @Model.Npv.InitialValue
+</div>
+<div>
+    Increment Rate: @Model.Npv.IncrementRate
+</div>
+<div>
+    Upper Rate: @Model.Npv.UpperRate
+</div>
+<div>
+    Lower Rate: @Model.Npv.LowerRate
+</div>
+
+
+<table class="table">
+    <tr>
+        <td>Year</td>
+        <td>Cash Flow</td>
+        <td>NPV Amount</td>
+    </tr>
+
+    @{int i = 0;}
+    @foreach (var npv in Model.Npv.CashFlows)
+    {
+        i++;
+        <tr>
+            <td>@i</td>
+            <td>@npv.Amount</td>
+            <td>@npv.NpvAmount</td>
+        </tr>
+    }
+
+</table>
+
+
+<a asp-page="./List" >All Finances</a>
+

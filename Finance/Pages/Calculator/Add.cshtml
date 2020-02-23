@@ -1,0 +1,119 @@
+﻿@page
+
+@model Finance.AddModel
+@{
+    ViewData["Title"] = "Add";
+}
+
+<h1>Create</h1>
+
+<form method="post" class="col-xs-12 col-sm-9">
+    <input type="hidden" asp-for="Npv.NpvId" />
+
+    <div class="form-group col-xs-12 col-sm-9">
+        <label asp-for="Npv.Name"></label>
+        <input asp-for="Npv.Name" class="form-control" />
+    </div>
+    <div class="form-group col-xs-12 col-sm-5">
+        <label asp-for="Npv.InitialValue"></label>
+        <input asp-for="Npv.InitialValue" class="form-control" />
+    </div>
+    <div class="form-group col-xs-12 col-sm-5">
+        <label asp-for="Npv.IncrementRate" class=" control-label"></label>
+        <div class="input-group ">
+            <input asp-for="Npv.IncrementRate" class="form-control" id="IncrementRate" />
+            <span class="input-group-addon">%</span>
+        </div>
+    </div>
+    <div class="form-group col-xs-12 col-sm-5">
+        <label asp-for="Npv.LowerRate" class=" control-label"></label>
+        <div class="input-group ">
+            <input asp-for="Npv.LowerRate" class="form-control" id="LowerRate" />
+            <span class="input-group-addon">%</span>
+        </div>
+    </div>
+    <div class="form-group col-xs-12 col-sm-5">
+        <label asp-for="Npv.UpperRate" class=" control-label"></label>
+        <div class="input-group ">
+            <input asp-for="Npv.UpperRate" class="form-control" id="UpperRate" />
+            <span class="input-group-addon">%</span>
+        </div>
+    </div>
+
+
+    <div id="TextBoxContainer">
+        <!--Textboxes will be added here -->
+    </div>
+
+
+    @{var i = 1;}
+    @foreach (var y in Model.Npv.CashFlows)
+    {
+
+        <div class="form-group">
+            <label>Cash Flow Year @i </label>
+            @Html.HiddenFor(a => y.Id)
+            @Html.TextBoxFor(a => y.Amount)
+        </div>
+        i++;
+    }
+
+    <input type="button" id="btnAdd" onclick="AddTextBox()" value="Add Cash Flow">
+
+    <button type="submit">Compute</button>
+    <a asp-page="./List">All Finances</a>
+</form>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript">
+    function GetDynamicTextBox(value) {
+
+        var rate = document.getElementById('IncrementRate').value;
+        var lower = document.getElementById('LowerRate').value;
+        var upper = document.getElementById('UpperRate').value;
+
+        var count = Math.floor((upper - lower) / rate );
+
+        var div = $("<div />");
+
+         for (var i = 0; i < count; i++) {
+            var label = document.createElement('label');
+            label.setAttribute('for', 'CashFlow');
+            label.innerHTML = "Cash Flow Year " + parseFloat(i + 1);
+            div.append(label);
+
+                    var textBox = $("<input />").attr("type", "textbox").attr("name", "DynamicTextBox")
+            .attr('id', 'cf' +i);
+            textBox.val(value);
+            div.append(textBox);
+        }
+
+            return div;
+        }
+
+    function AddTextBox() {
+        var div = GetDynamicTextBox("");
+        $("#TextBoxContainer").append(div);
+
+        document.getElementById("btnAdd").disabled = true;
+    }
+
+    function enableButton() {
+        document.getElementById("btnAdd").disabled = false;
+    }
+
+
+    function removeCashFlow() {
+         $("#TextBoxContainer").html("");
+    }
+
+        $(function () {
+            var values = eval('@Html.Raw(ViewBag.Values)');
+            if (values != null) {
+                $("#TextBoxContainer").html("");
+                $(values).each(function () {
+                    $("#TextBoxContainer").append(GetDynamicTextBox(this));
+                });
+            }
+        });
+</script>

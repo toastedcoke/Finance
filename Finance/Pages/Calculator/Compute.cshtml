@@ -1,0 +1,80 @@
+﻿@page
+@model Finance.ComputeModel
+@{
+    ViewData["Title"] = "Compute";
+}
+
+<h1>Compute</h1>
+
+<form method="post">
+    @*<div>
+            Initial Value: asp-for="Npv.Name"
+        </div>
+        <div>
+            Increment Rate: @Model.Npv.IncrementRate %
+        </div>
+        <div>
+            Lower Rate: @Model.Npv.LowerRate%
+            <span name="@Model.Npv.LowerRate"></span>
+        </div>
+        <div>
+            Upper Rate: @Model.Npv.UpperRate
+            <span name="@Model.Npv.UpperRate" ></span>
+        </div>*@
+
+
+    <div class="form-group">
+        <label asp-for="Npv.Name"></label>
+        <input asp-for="Npv.Name" readonly class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Npv.InitialValue"></label>
+        <input asp-for="Npv.InitialValue" readonly class="form-control" />
+    </div>
+    <div class="form-group col-xs-12 col-sm-5">
+        <label asp-for="Npv.IncrementRate" class=" control-label"></label>
+        <div class="input-group ">
+            <input asp-for="Npv.IncrementRate" readonly class="form-control" />
+            <span class="input-group-addon">%</span>
+        </div>
+    </div>
+    <div class="form-group col-xs-12 col-sm-5">
+        <label asp-for="Npv.LowerRate" class=" control-label"></label>
+        <div class="input-group ">
+            <input asp-for="Npv.LowerRate" readonly class="form-control" />
+            <span class="input-group-addon">%</span>
+        </div>
+    </div>
+    <div class="form-group col-xs-12 col-sm-5">
+        <label asp-for="Npv.UpperRate" class=" control-label"></label>
+        <div>
+            <input asp-for="Npv.UpperRate" readonly class="form-control" />
+            <span class="input-group-addon">%</span>
+        </div>
+    </div>
+
+
+    <table class="table">
+        <tr>
+            <td>Year</td>
+            <td>Cash Flow</td>
+            <td>NPV Amount</td>
+        </tr>
+
+        @{int i = 0;}
+        @foreach (var n in Model.Npv.CashFlows)
+        {
+            i++;
+    <tr>
+        <td>@i  @Html.HiddenFor(a => n.Id)</td>
+        <td>@Html.DisplayFor(a => n.Amount) @Html.HiddenFor(a => n.Amount)</td>
+        <td>@Html.DisplayTextFor(a => n.NpvAmount) @Html.HiddenFor(a => n.NpvAmount)</td>
+    </tr>
+        }
+
+    </table>
+
+    <button type="submit">Save</button>
+    <a asp-page="./List">All Finances</a>
+
+</form>

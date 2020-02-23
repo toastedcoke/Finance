@@ -1,0 +1,52 @@
+﻿@page "{npvId:int}"
+@model Finance.EditModel
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Editing @Model.Npv.Name</h1>
+
+<form method="post">
+    <input type="hidden" asp-for="Npv.NpvId" />
+
+    <div class="form-group">
+        <label asp-for="Npv.Name"></label>
+        <input asp-for="Npv.Name" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Npv.InitialValue"></label>
+        <input asp-for="Npv.InitialValue" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Npv.IncrementRate"></label>
+        <input asp-for="Npv.IncrementRate" disabled class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Npv.LowerRate"></label>
+        <input asp-for="Npv.LowerRate" disabled class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Npv.UpperRate"></label>
+        <input asp-for="Npv.UpperRate" disabled class="form-control" />
+    </div>
+
+
+
+    @{var i = 1;}
+    @foreach (var y in Model.Npv.CashFlows)
+    {
+
+        <div class="form-group">
+            <label>Cash Flow Year @i </label>
+            @Html.HiddenFor(a => y.Id)
+            @Html.TextBoxFor(a => y.Amount)
+        </div>
+        i++;
+    }
+
+
+
+    <button type="submit">Compute</button>
+    <button type="submit">Save</button>
+</form>
+
