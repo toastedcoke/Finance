@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Finance.Data;
 using Finance.Entity;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Newtonsoft.Json;
+using Finance.Core;
 
 namespace Finance
 {
@@ -46,12 +48,15 @@ namespace Finance
                     Amount = Convert.ToDouble(Request.Form["y.Amount"][i])
                 });
             }
+            Calculator calc = new Calculator();
+            Npv = calc.Compute(Npv);
 
             if (ModelState.IsValid)
             {
                 npvData.Update(Npv);
                 npvData.Commit();
                 return RedirectToPage("./Detail", new { npvId = Npv.NpvId });
+
             }
 
             

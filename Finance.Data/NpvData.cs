@@ -71,7 +71,14 @@ namespace Finance.Data
         {
             var entity = db.Npvs.Attach(updatedNpv);
             entity.State = EntityState.Modified;
+
+            foreach(var c in updatedNpv.CashFlows)
+            {
+                db.CashFlows.Attach(c);
+                db.Entry(c).State = EntityState.Modified;
+            }
             return updatedNpv;
         }
+
     }
 }

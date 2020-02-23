@@ -19,15 +19,15 @@
     </div>
     <div class="form-group">
         <label asp-for="Npv.IncrementRate"></label>
-        <input asp-for="Npv.IncrementRate" disabled class="form-control" />
+        <input asp-for="Npv.IncrementRate" readonly class="form-control" />
     </div>
     <div class="form-group">
         <label asp-for="Npv.LowerRate"></label>
-        <input asp-for="Npv.LowerRate" disabled class="form-control" />
+        <input asp-for="Npv.LowerRate" readonly class="form-control" />
     </div>
     <div class="form-group">
         <label asp-for="Npv.UpperRate"></label>
-        <input asp-for="Npv.UpperRate" disabled class="form-control" />
+        <input asp-for="Npv.UpperRate" readonly class="form-control" />
     </div>
 
 
@@ -46,7 +46,7 @@
 
 
 
-    <button type="submit">Compute</button>
     <button type="submit">Save</button>
+    <a asp-page="./List">Back to All Finances</a>
 </form>
 

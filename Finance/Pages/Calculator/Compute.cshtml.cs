@@ -51,8 +51,17 @@ namespace Finance
             }
             if (ModelState.IsValid)
             {
-                npvData.Add(Npv);
-                npvData.AddCashflow(Npv.CashFlows);
+                if (Npv.NpvId > 0)
+                {
+                    npvData.Update(Npv);
+                }
+                else
+                {
+                    npvData.Add(Npv);
+                    npvData.AddCashflow(Npv.CashFlows);
+                }
+
+                
                 npvData.Commit();
                 return RedirectToPage("./Detail", new { npvId = Npv.NpvId });
             }
