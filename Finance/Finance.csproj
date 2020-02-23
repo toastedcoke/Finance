@@ -7,6 +7,7 @@
   <ItemGroup>
     <PackageReference Include="AspNetCore.Mvc.HttpActionResults" Version="0.3.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.1" />
   </ItemGroup>
 
   <ItemGroup>

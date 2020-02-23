@@ -42,6 +42,11 @@ namespace Finance.Data
                 db.Npvs.Remove(npv);
             }
 
+            if (npv.CashFlows != null)
+            {
+                db.CashFlows.RemoveRange(npv.CashFlows);
+            }
+
             return npv;
         }
 
