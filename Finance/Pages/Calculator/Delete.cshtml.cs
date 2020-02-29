@@ -33,7 +33,6 @@ namespace Finance
         public IActionResult OnPost(int npvId)
         {
             var entity = npvData.Delete(npvId);
-            npvData.Commit();
 
             if (entity == null)
             {

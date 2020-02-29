@@ -26,17 +26,25 @@ namespace Finance
 
         public IActionResult OnGet()
         {
-            Npv = TempData.Get<Npv>("npv");
-
-            if (Npv == null)
+            try
             {
-                return RedirectToPage("./NotFound");
+                Npv = TempData.Get<Npv>("npv");
+
+                if (Npv == null)
+                {
+                    return RedirectToPage("./NotFound");
+                }
+
+                NpvValidate validate = new NpvValidate();
+                NpvCalculator calc = new NpvCalculator(validate);
+                Npv = calc.Compute(Npv);
+
+                return Page();
             }
-
-            Calculator calc = new Calculator();
-            Npv = calc.Compute(Npv);
-
-            return Page();
+            catch (Exception e)
+            {
+                return RedirectToPage("./Error");
+            }
         }
 
         public IActionResult OnPost()
@@ -58,11 +66,8 @@ namespace Finance
                 else
                 {
                     npvData.Add(Npv);
-                    npvData.AddCashflow(Npv.CashFlows);
                 }
 
-                
-                npvData.Commit();
                 return RedirectToPage("./Detail", new { npvId = Npv.NpvId });
             }
 

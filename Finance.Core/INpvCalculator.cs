@@ -5,7 +5,7 @@ using Finance.Entity;
 
 namespace Finance.Core
 {
-    public interface ICalculator
+    public interface INpvCalculator
     {
         Npv Compute(Npv npv);
     }

@@ -48,13 +48,14 @@ namespace Finance
                     Amount = Convert.ToDouble(Request.Form["y.Amount"][i])
                 });
             }
-            Calculator calc = new Calculator();
+            NpvValidate validate = new NpvValidate();
+            NpvCalculator calc = new NpvCalculator(validate);
             Npv = calc.Compute(Npv);
 
             if (ModelState.IsValid)
             {
                 npvData.Update(Npv);
-                npvData.Commit();
+
                 return RedirectToPage("./Detail", new { npvId = Npv.NpvId });
 
             }

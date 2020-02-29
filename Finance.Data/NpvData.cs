@@ -19,6 +19,9 @@ namespace Finance.Data
         public Npv Add(Npv npv)
         {
             db.Add(npv);
+            AddCashflow(npv.CashFlows);
+
+            db.SaveChanges();
             return npv;
         }
 
@@ -28,10 +31,6 @@ namespace Finance.Data
             return cashFlow;
         }
 
-        public int Commit()
-        {
-            return db.SaveChanges();
-        }
 
         public Npv Delete(int id)
         {
@@ -46,6 +45,7 @@ namespace Finance.Data
             {
                 db.CashFlows.RemoveRange(npv.CashFlows);
             }
+            db.SaveChanges();
 
             return npv;
         }
@@ -82,6 +82,7 @@ namespace Finance.Data
                 db.CashFlows.Attach(c);
                 db.Entry(c).State = EntityState.Modified;
             }
+            db.SaveChanges();
             return updatedNpv;
         }
 
