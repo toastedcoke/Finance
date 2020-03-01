@@ -1,4 +1,4 @@
-﻿using Finance.Entity;
+﻿using Finance.Entity.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,7 +7,7 @@ namespace Finance.Core
 {
     public class NpvValidate : INpvValidate
     {
-        public bool Validate(Npv npv)
+        public bool Validate(NpvDTO npv)
         {
             if (npv.LowerRate > npv.UpperRate)
             {

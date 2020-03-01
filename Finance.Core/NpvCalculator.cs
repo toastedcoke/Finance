@@ -1,4 +1,4 @@
-﻿using Finance.Entity;
+﻿using Finance.Entity.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,7 +13,7 @@ namespace Finance.Core
         {
             this.validator = validator ?? throw new System.ArgumentNullException(nameof(validator));
         }
-        public Npv Compute(Npv npv)
+        public NpvDTO Compute(NpvDTO npv)
         {
             try
             {

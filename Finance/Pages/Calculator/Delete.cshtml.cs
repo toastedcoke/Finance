@@ -5,22 +5,27 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Finance.Data;
-using Finance.Entity;
+using Finance.Entity.Models;
+using AutoMapper;
 
 namespace Finance
 {
     public class DeleteModel : PageModel
     {
         private readonly INpvData npvData;
-        public Npv npv { get; set; }
+        private readonly IMapper mapper;
 
-        public DeleteModel(INpvData npvData)
+        public NpvDTO npv { get; set; }
+
+        public DeleteModel(INpvData npvData, IMapper mapper)
         {
             this.npvData = npvData;
+            this.mapper = mapper;
         }
         public IActionResult OnGet(int npvId)
         {
-            npv = npvData.GetByNpvId(npvId);
+            var result = npvData.GetByNpvId(npvId);
+            npv = mapper.Map<NpvDTO>(result);
 
             if (npv == null)
             {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace Finance.Entity
+namespace Finance.Entity.Entities
 {
     public class Npv
     {

@@ -4,23 +4,28 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Finance.Entity;
+using Finance.Entity.Models;
 using Finance.Data;
+using AutoMapper;
 
 namespace Finance
 {
     public class DetailModel : PageModel
     {
-        public Npv Npv { get; set; }
+        private readonly IMapper mapper;
+
+        public NpvDTO Npv { get; set; }
         public INpvData NpvData { get; set; }
 
-        public DetailModel(INpvData npvData)
+        public DetailModel(INpvData npvData, IMapper mapper)
         {
             this.NpvData = npvData;
+            this.mapper = mapper;
         }
         public IActionResult OnGet(int npvId)
         {
-            Npv = NpvData.GetByNpvId(npvId);
+            var result = NpvData.GetByNpvId(npvId);
+            Npv = mapper.Map<NpvDTO>(result);
 
             if (Npv == null)
             {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Finance.Entity;
+using Finance.Entity.Entities;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 

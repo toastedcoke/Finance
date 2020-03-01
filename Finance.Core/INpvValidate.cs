@@ -1,4 +1,4 @@
-﻿using Finance.Entity;
+﻿using Finance.Entity.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,6 +7,6 @@ namespace Finance.Core
 {
     public interface INpvValidate
     {
-        bool Validate(Npv npv);
+        bool Validate(NpvDTO npv);
     }
 }

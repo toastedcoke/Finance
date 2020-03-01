@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Finance.Data;
 using Microsoft.EntityFrameworkCore;
+using AutoMapper;
 
 namespace Finance
 {
@@ -31,6 +32,9 @@ namespace Finance
             });
 
             services.AddScoped<INpvData, NpvData>();
+
+            services.AddAutoMapper(typeof(Startup));
+            services.AddControllersWithViews();
 
             services.AddRazorPages();
         }

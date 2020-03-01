@@ -5,39 +5,44 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Finance.Data;
-using Finance.Entity;
+using Finance.Entity.Models;
+using Finance.Entity.Entities;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Newtonsoft.Json;
 using Finance.Core;
+using AutoMapper;
 
 namespace Finance
 {
     public class ComputeModel : PageModel
     {
         private readonly INpvData npvData;
+        private readonly IMapper mapper;
 
         [BindProperty]
-        public Npv Npv { get; set; }
+        public NpvDTO dto { get; set; }
 
-        public ComputeModel(INpvData npvData)
+        public ComputeModel(INpvData npvData, IMapper mapper)
         {
             this.npvData = npvData;
+            this.mapper = mapper;
         }
 
         public IActionResult OnGet()
         {
             try
             {
-                Npv = TempData.Get<Npv>("npv");
+                var result = 
+                dto = TempData.Get<NpvDTO>("npvDTO");
 
-                if (Npv == null)
+                if (dto == null)
                 {
                     return RedirectToPage("./NotFound");
                 }
 
                 NpvValidate validate = new NpvValidate();
                 NpvCalculator calc = new NpvCalculator(validate);
-                Npv = calc.Compute(Npv);
+                dto = calc.Compute(dto);
 
                 return Page();
             }
@@ -51,7 +56,7 @@ namespace Finance
         {
             for (int i = 0; i < Request.Form["n.Id"].Count; i++)
             {
-                Npv.CashFlows.Add(new CashFlow
+                dto.CashFlows.Add(new CashFlowDTO
                 {
                     Amount = Convert.ToDouble(Request.Form["n.Amount"][i]),
                     NpvAmount = Convert.ToDouble(Request.Form["n.NpvAmount"][i])
@@ -59,16 +64,19 @@ namespace Finance
             }
             if (ModelState.IsValid)
             {
-                if (Npv.NpvId > 0)
+
+                var npv = mapper.Map<Npv>(dto);
+
+                if (dto.NpvId > 0)
                 {
-                    npvData.Update(Npv);
+                    npvData.Update(npv);
                 }
                 else
                 {
-                    npvData.Add(Npv);
+                    npvData.Add(npv);
                 }
 
-                return RedirectToPage("./Detail", new { npvId = Npv.NpvId });
+                return RedirectToPage("./Detail", new { npvId = npv.NpvId });
             }
 
             return RedirectToPage("./Error");

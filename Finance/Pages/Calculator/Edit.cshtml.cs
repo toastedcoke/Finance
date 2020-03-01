@@ -5,10 +5,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Finance.Data;
-using Finance.Entity;
+using Finance.Entity.Models;
+using Finance.Entity.Entities;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 using Finance.Core;
+using AutoMapper;
 
 namespace Finance
 {
@@ -16,20 +18,23 @@ namespace Finance
     {
         private readonly INpvData npvData;
         private readonly IHtmlHelper htmlHelper;
+        private readonly IMapper mapper;
 
         [BindProperty]
-        public Npv Npv { get; set; }
+        public NpvDTO dto { get; set; }
 
-        public EditModel(INpvData npvData, IHtmlHelper htmlHelper)
+        public EditModel(INpvData npvData, IHtmlHelper htmlHelper, IMapper mapper)
         {
             this.npvData = npvData;
             this.htmlHelper = htmlHelper;
+            this.mapper = mapper;
         }
         public IActionResult OnGet(int npvId)
         {
-            Npv = npvData.GetByNpvId(npvId);
+            var result = npvData.GetByNpvId(npvId);
+            dto = mapper.Map<NpvDTO>(result);
 
-            if(Npv == null)
+            if (dto == null)
             {
                 return RedirectToPage("./NotFound");
             }
@@ -38,11 +43,11 @@ namespace Finance
 
         public IActionResult OnPost()
         {
-            Npv.CashFlows = new List<CashFlow>();
+            dto.CashFlows = new List<CashFlowDTO>();
 
             for (int i = 0; i < Request.Form["y.Id"].Count; i++)
             {
-                Npv.CashFlows.Add(new CashFlow
+                dto.CashFlows.Add(new CashFlowDTO
                 {
                     Id = Convert.ToInt32(Request.Form["y.Id"][i]),
                     Amount = Convert.ToDouble(Request.Form["y.Amount"][i])
@@ -50,13 +55,14 @@ namespace Finance
             }
             NpvValidate validate = new NpvValidate();
             NpvCalculator calc = new NpvCalculator(validate);
-            Npv = calc.Compute(Npv);
+            dto = calc.Compute(dto);
 
             if (ModelState.IsValid)
             {
-                npvData.Update(Npv);
+                var npv = mapper.Map<Npv>(dto);
+                npvData.Update(npv);
 
-                return RedirectToPage("./Detail", new { npvId = Npv.NpvId });
+                return RedirectToPage("./Detail", new { npvId = dto.NpvId });
 
             }
 

@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Finance.Entity;
+using Finance.Entity.Models;
 
 namespace Finance.Core
 {
     public interface INpvCalculator
     {
-        Npv Compute(Npv npv);
+        NpvDTO Compute(NpvDTO npvDTO);
     }
 }

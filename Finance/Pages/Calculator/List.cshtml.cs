@@ -6,7 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Configuration;
 using Finance.Data;
-using Finance.Entity;
+using AutoMapper;
+using Finance.Entity.Models;
 
 namespace Finance
 {
@@ -14,22 +15,25 @@ namespace Finance
     {
         private readonly IConfiguration config;
         private readonly INpvData npvData;
+        private readonly IMapper mapper;
 
-        public IEnumerable<Npv> Npvs { get; set; }
+        public IEnumerable<NpvDTO> Npvs { get; set; }
 
         [BindProperty(SupportsGet =true)]
         public string SearchTerm { get; set; }
 
-        public ListModel(IConfiguration config, INpvData npvData)
+        public ListModel(IConfiguration config, INpvData npvData, IMapper mapper)
         {
             this.config = config;
             this.npvData = npvData;
+            this.mapper = mapper;
         }
 
 
         public void OnGet()
         {
-            Npvs = npvData.GetNpvByName(SearchTerm);
+            var result = npvData.GetNpvByName(SearchTerm);
+            Npvs = mapper.Map<IEnumerable<NpvDTO>>(result);
         }
     }
 }

@@ -4,7 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Finance.Entity;
+using Finance.Entity.Models;
+using Finance.Entity.Entities;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 using Finance.Data;
@@ -17,7 +18,7 @@ namespace Finance
         private readonly IHtmlHelper htmlHelper;
 
         [BindProperty]
-        public Npv Npv { get; set; }
+        public NpvDTO dto { get; set; }
 
         public AddModel(INpvData npvData, IHtmlHelper htmlHelper)
         {
@@ -26,19 +27,19 @@ namespace Finance
         }
         public IActionResult OnGet(int npvId)
         {
-            Npv = new Npv();
-            Npv.CashFlows = new List<CashFlow>();
+            dto = new NpvDTO();
+            dto.CashFlows = new List<CashFlowDTO>();
 
             return Page();
         }
 
         public IActionResult OnPost()
         {
-            Npv.CashFlows = new List<CashFlow>();
+            dto.CashFlows = new List<CashFlowDTO>();
 
             for (int i = 0; i < Request.Form["DynamicTextBox"].Count; i++)
             {
-                Npv.CashFlows.Add(new CashFlow
+                dto.CashFlows.Add(new CashFlowDTO
                 {
                     Amount = Convert.ToDouble(Request.Form["DynamicTextBox"][i])
                 });
@@ -46,8 +47,8 @@ namespace Finance
 
             if (ModelState.IsValid)
             {
-                TempData["npv"] = JsonConvert.SerializeObject(Npv);
-                return RedirectToPage("./Compute", new { npv = Npv });
+                TempData["npvDTO"] = JsonConvert.SerializeObject(dto);
+                return RedirectToPage("./Compute", new { dto = dto });
             }
 
             return Page();

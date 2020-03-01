@@ -8,34 +8,34 @@
 <h1>Create</h1>
 
 <form method="post" class="col-xs-12 col-sm-9">
-    <input type="hidden" asp-for="Npv.NpvId" />
+    <input type="hidden" asp-for="dto.NpvId" />
 
     <div class="form-group col-xs-12 col-sm-9">
-        <label asp-for="Npv.Name"></label>
-        <input asp-for="Npv.Name" class="form-control" />
+        <label asp-for="dto.Name"></label>
+        <input asp-for="dto.Name" class="form-control" />
     </div>
     <div class="form-group col-xs-12 col-sm-5">
-        <label asp-for="Npv.InitialValue"></label>
-        <input asp-for="Npv.InitialValue" class="form-control" />
+        <label asp-for="dto.InitialValue"></label>
+        <input asp-for="dto.InitialValue" class="form-control" />
     </div>
     <div class="form-group col-xs-12 col-sm-5">
-        <label asp-for="Npv.IncrementRate" class=" control-label"></label>
+        <label asp-for="dto.IncrementRate" class=" control-label"></label>
         <div class="input-group ">
-            <input asp-for="Npv.IncrementRate" class="form-control" id="IncrementRate" />
+            <input asp-for="dto.IncrementRate" class="form-control" id="IncrementRate" />
             <span class="input-group-addon">%</span>
         </div>
     </div>
     <div class="form-group col-xs-12 col-sm-5">
-        <label asp-for="Npv.LowerRate" class=" control-label"></label>
+        <label asp-for="dto.LowerRate" class=" control-label"></label>
         <div class="input-group ">
-            <input asp-for="Npv.LowerRate" class="form-control" id="LowerRate" />
+            <input asp-for="dto.LowerRate" class="form-control" id="LowerRate" />
             <span class="input-group-addon">%</span>
         </div>
     </div>
     <div class="form-group col-xs-12 col-sm-5">
-        <label asp-for="Npv.UpperRate" class=" control-label"></label>
+        <label asp-for="dto.UpperRate" class=" control-label"></label>
         <div class="input-group ">
-            <input asp-for="Npv.UpperRate" class="form-control" id="UpperRate" />
+            <input asp-for="dto.UpperRate" class="form-control" id="UpperRate" />
             <span class="input-group-addon">%</span>
         </div>
     </div>
@@ -47,7 +47,7 @@
 
 
     @{var i = 1;}
-    @foreach (var y in Model.Npv.CashFlows)
+    @foreach (var y in Model.dto.CashFlows)
     {
 
         <div class="form-group">
