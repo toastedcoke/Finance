@@ -9,7 +9,7 @@ namespace Finance.Data
 {
     public interface INpvData
     {
-        IEnumerable<Npv> GetNpvByName(string name);
+        List<Npv> GetNpvByName(string name);
         Npv GetByNpvId(int id);
         Npv Update(Npv updatedNpv);
         Npv Add(Npv newNpv);

@@ -20,8 +20,8 @@ namespace Finance.Core.Tests
                 InitialValue = 10000,
                 TotalNpvAmount = null,
                 CashFlows = new List<CashFlowDTO> {
-                    new CashFlowDTO { Amount = 1000, NpvAmount = 2700 },
-                    new CashFlowDTO { Amount = 2000, NpvAmount = 2700 } }
+                    new CashFlowDTO { Amount = 1000},
+                    new CashFlowDTO { Amount = 2000} }
             };
 
             Mock<INpvValidate> mockValidator = new Mock<INpvValidate>();
@@ -73,8 +73,8 @@ namespace Finance.Core.Tests
                 InitialValue = 10000,
                 TotalNpvAmount = null,
                 CashFlows = new List<CashFlowDTO> {
-                    new CashFlowDTO { Amount = 1000, NpvAmount = 2700 },
-                    new CashFlowDTO { Amount = 2000, NpvAmount = 2700 } }
+                    new CashFlowDTO { Amount = 1000 },
+                    new CashFlowDTO { Amount = 2000 } }
             };
 
             Mock<INpvValidate> mockValidator = new Mock<INpvValidate>();

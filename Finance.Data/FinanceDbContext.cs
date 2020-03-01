@@ -8,13 +8,17 @@ namespace Finance.Data
 {
     public class FinanceDbContext : DbContext
     {
+        public FinanceDbContext()
+        {
+
+        }
         public FinanceDbContext(DbContextOptions options) : base(options)
         {
                
         }
 
-        public DbSet<Npv> Npvs { get; set; }
-        public DbSet<CashFlow> CashFlows { get; set; }
+        public virtual DbSet<Npv> Npvs { get; set; }
+        public virtual DbSet<CashFlow> CashFlows { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -17,7 +17,7 @@ namespace Finance
         private readonly INpvData npvData;
         private readonly IMapper mapper;
 
-        public IEnumerable<NpvDTO> Npvs { get; set; }
+        public List<NpvDTO> Npvs { get; set; }
 
         [BindProperty(SupportsGet =true)]
         public string SearchTerm { get; set; }
@@ -33,7 +33,7 @@ namespace Finance
         public void OnGet()
         {
             var result = npvData.GetNpvByName(SearchTerm);
-            Npvs = mapper.Map<IEnumerable<NpvDTO>>(result);
+            Npvs = mapper.Map<List<NpvDTO>>(result);
         }
     }
 }

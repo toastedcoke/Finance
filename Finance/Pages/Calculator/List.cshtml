@@ -32,8 +32,8 @@
 <tr>
     <td>@npv.NpvId</td>
     <td>@npv.Name</td>
-    <td>@npv.InitialValue</td>
-    <td>@npv.TotalNpvAmount</td>
+    <td>@string.Format("{0:C}", npv.InitialValue)</td>
+    <td>@string.Format("{0:C}", npv.TotalNpvAmount)</td>
     <td>
         <a asp-page="./Detail"
            asp-route-npvId="@npv.NpvId"> View</a>

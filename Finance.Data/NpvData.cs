@@ -11,6 +11,7 @@ namespace Finance.Data
     {
         private readonly FinanceDbContext db;
 
+
         public NpvData(FinanceDbContext db)
         {
             this.db = db;
@@ -61,28 +62,45 @@ namespace Finance.Data
             return npv;
         }
 
-        public IEnumerable<Npv> GetNpvByName(string name)
+        public List<Npv> GetNpvByName(string name)
         {
             var query = from n in db.Npvs
                         where string.IsNullOrEmpty(name) || n.Name.ToUpper().Contains(name.ToUpper())
                         orderby n.Name
                         select n;
 
-            return query;
+            return query.ToList();
         }
 
         public Npv Update(Npv updatedNpv)
         {
-            var entity = db.Npvs.Attach(updatedNpv);
-            entity.State = EntityState.Modified;
+            var entity = GetByNpvId(updatedNpv.NpvId);
 
-            foreach(var c in updatedNpv.CashFlows)
+            if (entity != null)
             {
-                db.CashFlows.Attach(c);
-                db.Entry(c).State = EntityState.Modified;
+                entity.Name = updatedNpv.Name;
+                entity.InitialValue = updatedNpv.InitialValue;
+                entity.TotalNpvAmount = updatedNpv.TotalNpvAmount;
+                entity.CashFlows = updatedNpv.CashFlows;
+
+                db.SaveChanges();
+                return updatedNpv;
             }
-            db.SaveChanges();
-            return updatedNpv;
+            else
+            {
+                return null;
+            }
+
+
+            //var entity = db.Npvs.Attach(updatedNpv);
+            //entity.State = EntityState.Modified;
+
+            //foreach (var c in updatedNpv.CashFlows)
+            //{
+            //    db.CashFlows.Attach(c);
+            //    db.Entry(c).State = EntityState.Modified;
+            //}
+            
         }
 
     }

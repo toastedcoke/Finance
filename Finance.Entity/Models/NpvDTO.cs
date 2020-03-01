@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using System.Text;
 
@@ -9,6 +10,7 @@ namespace Finance.Entity.Models
     {
         public int NpvId { get; set; }
         public string Name { get; set; }
+        
         public double InitialValue { get; set; }
         public double IncrementRate { get; set; }
 
