@@ -15,7 +15,7 @@
     </div>
     <div class="form-group">
         <label asp-for="dto.InitialValue"></label>
-        <input asp-for="dto.InitialValue" class="form-control" />
+        <input asp-for="dto.InitialValue" class="form-control" asp-format="{0:C}"/>
     </div>
     <div class="form-group">
         <label asp-for="dto.IncrementRate"></label>
@@ -39,6 +39,7 @@
         <div class="form-group">
             <label>Cash Flow Year @i </label>
             @Html.HiddenFor(a => y.Id)
+
             @Html.TextBoxFor(a => y.Amount)
         </div>
         i++;

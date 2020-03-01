@@ -7,7 +7,7 @@
 <h1>@Model.Npv.Name</h1>
 
 <div>
-    Initial Value: @Model.Npv.InitialValue
+    Initial Value: @string.Format("{0:C}", Model.Npv.InitialValue)
 </div>
 <div>
     Increment Rate: @Model.Npv.IncrementRate
@@ -17,6 +17,9 @@
 </div>
 <div>
     Lower Rate: @Model.Npv.LowerRate
+</div>
+<div>
+    Current NPV Amount: @string.Format("{0:C}", Model.Npv.TotalNpvAmount)
 </div>
 
 
@@ -33,8 +36,8 @@
         i++;
         <tr>
             <td>@i</td>
-            <td>@npv.Amount</td>
-            <td>@npv.NpvAmount</td>
+            <td>@string.Format("{0:C}", npv.Amount)</td>
+            <td>@string.Format("{0:C}", npv.NpvAmount)</td>
         </tr>
     }
 
