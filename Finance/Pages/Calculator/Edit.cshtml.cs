@@ -50,7 +50,7 @@ namespace Finance
                 dto.CashFlows.Add(new CashFlowDTO
                 {
                     Id = Convert.ToInt32(Request.Form["y.Id"][i]),
-                    Amount = Convert.ToDouble(Request.Form["y.Amount"][i])
+                    Amount = string.IsNullOrEmpty(Request.Form["y.Amount"][i]) ? 0 : Convert.ToDouble(Request.Form["y.Amount"][i]) 
                 });
             }
             NpvValidate validate = new NpvValidate();
@@ -65,7 +65,10 @@ namespace Finance
                 return RedirectToPage("./Detail", new { npvId = dto.NpvId });
 
             }
-
+            else
+            {
+                ModelState.AddModelError("error", "An error occured");
+            }
             
             return Page();
         }

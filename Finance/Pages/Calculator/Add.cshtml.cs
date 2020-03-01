@@ -20,6 +20,7 @@ namespace Finance
         [BindProperty]
         public NpvDTO dto { get; set; }
 
+
         public AddModel(INpvData npvData, IHtmlHelper htmlHelper)
         {
             this.npvData = npvData;
@@ -35,23 +36,31 @@ namespace Finance
 
         public IActionResult OnPost()
         {
-            dto.CashFlows = new List<CashFlowDTO>();
-
-            for (int i = 0; i < Request.Form["DynamicTextBox"].Count; i++)
+            try
             {
-                dto.CashFlows.Add(new CashFlowDTO
+                dto.CashFlows = new List<CashFlowDTO>();
+
+                for (int i = 0; i < Request.Form["DynamicTextBox"].Count; i++)
                 {
-                    Amount = Convert.ToDouble(Request.Form["DynamicTextBox"][i])
-                });
-            }
+                    dto.CashFlows.Add(new CashFlowDTO
+                    {
+                        Amount = string.IsNullOrEmpty(Request.Form["DynamicTextBox"][i]) ? 0 : Convert.ToDouble(Request.Form["DynamicTextBox"][i])
+                    });
+                }
 
-            if (ModelState.IsValid)
+                if (ModelState.IsValid)
+                {
+                    TempData["npvDTO"] = JsonConvert.SerializeObject(dto);
+                    //return RedirectToPage("./Compute", new { npv = dto });
+                    return RedirectToPage("./Compute");
+                }
+
+                return Page();
+            }
+            catch(Exception e)
             {
-                TempData["npvDTO"] = JsonConvert.SerializeObject(dto);
-                return RedirectToPage("./Compute", new { dto = dto });
+                return RedirectToPage("./Error");
             }
-
-            return Page();
         }
 
        

@@ -10,10 +10,8 @@ namespace Finance.Entity.Models
     {
         public int Id { get; set; }
         public int NpvId { get; set; }
-        
-      //  [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:c}")]
+        [Required]
         public double Amount { get; set; }
-     //   [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:c}")]
         public double NpvAmount { get; set; }
     }
 }

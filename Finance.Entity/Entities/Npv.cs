@@ -13,13 +13,13 @@ namespace Finance.Entity.Entities
         [Required]
         public double InitialValue { get; set; }
         [Required]
-        public double IncrementRate { get; set; }
+        public decimal IncrementRate { get; set; }
         
         [Required]
-        public double LowerRate { get; set; }
+        public decimal LowerRate { get; set; }
 
         [Required]
-        public double UpperRate { get; set; }
+        public decimal UpperRate { get; set; }
 
         public List<CashFlow> CashFlows { get; set; }
         public double? TotalNpvAmount { get; set; }

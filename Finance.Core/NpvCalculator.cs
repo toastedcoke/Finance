@@ -29,7 +29,7 @@ namespace Finance.Core
                     foreach (var item in npv.CashFlows)
                     {
                         i++;
-                        item.NpvAmount = total + (item.Amount / Math.Pow(1 + rate / 100, i));
+                        item.NpvAmount = total + (item.Amount / Math.Pow(1 + Convert.ToDouble(rate) / 100, i));
 
                         rate += npv.IncrementRate;
                         total = item.NpvAmount;

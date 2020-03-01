@@ -7,27 +7,38 @@
 <h1>Editing @Model.dto.Name</h1>
 
 <form method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
     <input type="hidden" asp-for="dto.NpvId" />
 
-    <div class="form-group">
-        <label asp-for="dto.Name"></label>
+    <div class="form-group  col-xs-12 col-sm-9">
+        <label asp-for="dto.Name" class=" control-label"></label>
         <input asp-for="dto.Name" class="form-control" />
     </div>
-    <div class="form-group">
-        <label asp-for="dto.InitialValue"></label>
-        <input asp-for="dto.InitialValue" class="form-control" asp-format="{0:C}"/>
+    <div class="form-group col-xs-12 col-sm-5">
+        <label asp-for="dto.InitialValue" class=" control-label"></label>
+        <input asp-for="dto.InitialValue" class="form-control" />
+        <span asp-validation-for="dto.InitialValue" class="text-danger"></span>
     </div>
-    <div class="form-group">
-        <label asp-for="dto.IncrementRate"></label>
-        <input asp-for="dto.IncrementRate" readonly class="form-control" />
+    <div class="form-group col-xs-12 col-sm-5">
+        <label asp-for="dto.IncrementRate" class=" control-label"></label>
+        <div class="input-group ">
+            <input asp-for="dto.IncrementRate" readonly class="form-control" />
+            <span class="input-group-addon">%</span>
+        </div>
     </div>
-    <div class="form-group">
-        <label asp-for="dto.LowerRate"></label>
-        <input asp-for="dto.LowerRate" readonly class="form-control" />
+    <div class="form-group col-xs-12 col-sm-5">
+        <label asp-for="dto.LowerRate" class=" control-label"></label>
+        <div class="input-group ">
+            <input asp-for="dto.LowerRate" readonly class="form-control" />
+            <span class="input-group-addon">%</span>
+        </div>
     </div>
-    <div class="form-group">
-        <label asp-for="dto.UpperRate"></label>
-        <input asp-for="dto.UpperRate" readonly class="form-control" />
+    <div class="form-group col-xs-12 col-sm-5">
+        <label asp-for="dto.UpperRate" class=" control-label"></label>
+        <div class="input-group ">
+            <input asp-for="dto.UpperRate" readonly class="form-control" />
+            <span class="input-group-addon">%</span>
+        </div>
     </div>
 
 

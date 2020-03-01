@@ -32,7 +32,6 @@ namespace Finance
         {
             try
             {
-                var result = 
                 dto = TempData.Get<NpvDTO>("npvDTO");
 
                 if (dto == null)
@@ -58,8 +57,8 @@ namespace Finance
             {
                 dto.CashFlows.Add(new CashFlowDTO
                 {
-                    Amount = Convert.ToDouble(Request.Form["n.Amount"][i]),
-                    NpvAmount = Convert.ToDouble(Request.Form["n.NpvAmount"][i])
+                    Amount = string.IsNullOrEmpty(Request.Form["n.Amount"][i]) ? 0 : Convert.ToDouble(Request.Form["n.Amount"][i]),
+                    NpvAmount = string.IsNullOrEmpty(Request.Form["n.NpvAmount"][i]) ? 0 : Convert.ToDouble(Request.Form["n.NpvAmount"][i])
                 });
             }
             if (ModelState.IsValid)

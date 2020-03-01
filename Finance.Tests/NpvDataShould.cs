@@ -19,9 +19,9 @@ namespace Finance.Tests
         public NpvDataShould()
         {
             npvs = new List<Npv>(){
-                new Npv{NpvId = 1, Name="Cashflow 1", IncrementRate = .25, LowerRate=1, UpperRate =2,
+                new Npv{NpvId = 1, Name="Cashflow 1", IncrementRate = .25m, LowerRate=1, UpperRate =2,
                     InitialValue =10000, TotalNpvAmount = -6145.16 },
-                new Npv{NpvId = 2, Name="Cashflow 2", IncrementRate = .5, LowerRate=1, UpperRate =2,
+                new Npv{NpvId = 2, Name="Cashflow 2", IncrementRate = .5m, LowerRate=1, UpperRate =2,
                     InitialValue =2000, TotalNpvAmount = -39.239241451869475 }
             };
 
@@ -69,7 +69,7 @@ namespace Finance.Tests
 
             var npv = service.Add(new Npv {
                 Name = "Cashflow 1",
-                IncrementRate = .25,
+                IncrementRate = .25m,
                 LowerRate = 1,
                 UpperRate = 2,
                 InitialValue = 10000,
@@ -118,7 +118,7 @@ namespace Finance.Tests
             {
                 NpvId = 1,
                 Name = "Updated Cashflow 1",
-                IncrementRate = .25,
+                IncrementRate = .25m,
                 LowerRate = 1,
                 UpperRate = 2,
                 InitialValue = 10000,

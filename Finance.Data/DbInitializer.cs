@@ -20,8 +20,8 @@ namespace Finance.Data
 
 
             var npvs = new List<Npv>(){
-                new Npv{  Name="Cashflow 1", IncrementRate = .25, LowerRate=1, UpperRate =2, InitialValue =10000, TotalNpvAmount = -6145.16},
-                new Npv{ Name="Cashflow 2", IncrementRate = .5, LowerRate=1, UpperRate =2, InitialValue =2000, TotalNpvAmount = -39.239241451869475}
+                new Npv{  Name="Cashflow 1", IncrementRate = .25m, LowerRate=1, UpperRate =2, InitialValue =10000, TotalNpvAmount = -6145.16},
+                new Npv{ Name="Cashflow 2", IncrementRate = .5m, LowerRate=1, UpperRate =2, InitialValue =2000, TotalNpvAmount = -39.239241451869475}
             };
 
             foreach (Npv s in npvs)

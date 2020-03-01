@@ -8,21 +8,26 @@
 <h1>Create</h1>
 
 <form method="post" class="col-xs-12 col-sm-9">
+    <div asp-validation-summary="All" class="text-danger"></div>
+
     <input type="hidden" asp-for="dto.NpvId" />
 
     <div class="form-group col-xs-12 col-sm-9">
         <label asp-for="dto.Name"></label>
         <input asp-for="dto.Name" class="form-control" />
+        <span asp-validation-for="dto.Name" class="text-danger"></span>
     </div>
     <div class="form-group col-xs-12 col-sm-5">
         <label asp-for="dto.InitialValue"></label>
-        <input asp-for="dto.InitialValue" class="form-control" />
+        <input asp-for="dto.InitialValue" class="form-control" id="InitialValue"/>
+        <span asp-validation-for="dto.InitialValue" class="text-danger"></span>
     </div>
     <div class="form-group col-xs-12 col-sm-5">
         <label asp-for="dto.IncrementRate" class=" control-label"></label>
         <div class="input-group ">
             <input asp-for="dto.IncrementRate" class="form-control" id="IncrementRate" />
             <span class="input-group-addon">%</span>
+            <span asp-validation-for="dto.IncrementRate" class="text-danger"></span>
         </div>
     </div>
     <div class="form-group col-xs-12 col-sm-5">
@@ -30,6 +35,7 @@
         <div class="input-group ">
             <input asp-for="dto.LowerRate" class="form-control" id="LowerRate" />
             <span class="input-group-addon">%</span>
+            <span asp-validation-for="dto.LowerRate" class="text-danger"></span>
         </div>
     </div>
     <div class="form-group col-xs-12 col-sm-5">
@@ -37,6 +43,7 @@
         <div class="input-group ">
             <input asp-for="dto.UpperRate" class="form-control" id="UpperRate" />
             <span class="input-group-addon">%</span>
+            <span asp-validation-for="dto.UpperRate" class="text-danger"></span>
         </div>
     </div>
 
@@ -71,21 +78,47 @@
         var rate = document.getElementById('IncrementRate').value;
         var lower = document.getElementById('LowerRate').value;
         var upper = document.getElementById('UpperRate').value;
+        var initialvalue = document.getElementById('InitialValue').value;
+        
+
+        if (lower > upper) {
+            alert("Lower rate should be lower than upper rate");
+            document.getElementById("btnAdd").removeAttribute("disabled");
+            return;
+        }
+        if (rate == 0) {
+            alert("Incremental rate should be greater than 0");
+            document.getElementById("btnAdd").removeAttribute("disabled");
+            return;
+        }
+
+        if (initialvalue <= 0) {
+            alert("Initial Value should be greater than 0");
+            document.getElementById("btnAdd").removeAttribute("disabled");
+            return;
+        }
 
         var count = Math.floor((upper - lower) / rate );
 
         var div = $("<div />");
 
-         for (var i = 0; i < count; i++) {
+        for (var i = 0; i < count; i++) {
+
+            var divStart = $("<div>");
+            div.append(divStart);
             var label = document.createElement('label');
             label.setAttribute('for', 'CashFlow');
+            label.setAttribute('style', 'padding-right: 15px');
             label.innerHTML = "Cash Flow Year " + parseFloat(i + 1);
             div.append(label);
 
-                    var textBox = $("<input />").attr("type", "textbox").attr("name", "DynamicTextBox")
+            var textBox = $("<input />").attr("type", "textbox").attr("name", "DynamicTextBox")
             .attr('id', 'cf' +i);
             textBox.val(value);
             div.append(textBox);
+
+            var divEnd = $("</div>");
+            div.append(divEnd);
         }
 
             return div;
@@ -98,9 +131,7 @@
         document.getElementById("btnAdd").disabled = true;
     }
 
-    function enableButton() {
-        document.getElementById("btnAdd").disabled = false;
-    }
+
 
 
     function removeCashFlow() {
