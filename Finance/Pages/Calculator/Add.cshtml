@@ -97,7 +97,7 @@
             document.getElementById("btnAdd").removeAttribute("disabled");
             return;
         }
-
+        document.getElementById("btnAdd").disabled = true;
         var count = Math.floor((upper - lower) / rate );
 
         var div = $("<div />");
@@ -128,7 +128,7 @@
         var div = GetDynamicTextBox("");
         $("#TextBoxContainer").append(div);
 
-        document.getElementById("btnAdd").disabled = true;
+        
     }
 
 
