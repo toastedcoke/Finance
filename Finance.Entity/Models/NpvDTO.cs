@@ -25,7 +25,7 @@ namespace Finance.Entity.Models
         public decimal UpperRate { get; set; }
     
         public List<CashFlowDTO> CashFlows { get; set; }
-        [Display(Name = "Current Npv Amount")]
+        [Display(Name = "Net Present Value")]
         public double? TotalNpvAmount { get; set; }
         public NpvDTO()
         {

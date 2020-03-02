@@ -19,7 +19,7 @@
     Lower Rate: @Model.Npv.LowerRate
 </div>
 <div>
-    Current NPV Amount: @string.Format("{0:C}", Model.Npv.TotalNpvAmount)
+    NPV Amount: @string.Format("{0:C}", Model.Npv.TotalNpvAmount)
 </div>
 
 
@@ -27,7 +27,7 @@
     <tr>
         <td>Year</td>
         <td>Cash Flow</td>
-        <td>NPV Amount</td>
+        <td>Present Value</td>
     </tr>
 
     @{int i = 0;}
