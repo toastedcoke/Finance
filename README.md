@@ -13,5 +13,5 @@ Below is the formula used to compute the NPV:
 - **X<sub>0</sub>**  = Cash outflow in time 0 (i.e. the purchase price / initial investment)
 
 **Note:**
-- The initial value for the discount rate in first year is the lower rate, succeeding year is lower rate plus the sum of incemental rate up to year *N*.
+- The initial value for the discount rate in the first year is the lower bound rate, succeeding year is lower bound rate plus the sum of incemental rate up to year *N*.
 - The maximum year is up to the Upper Bound rate
