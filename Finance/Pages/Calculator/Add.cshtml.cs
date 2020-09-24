@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 using Finance.Data;
 
 namespace Finance
-{//test branch
+{//another branch
     public class AddModel : PageModel
     {
         private readonly INpvData npvData;
